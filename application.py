@@ -205,7 +205,7 @@ def pie():
         print(count)
         explode = (0.1, 0, 0)
         activities=['4-6','6-8','8-10']
-        cols=['yellowgreen','lightcoral','white']
+        cols=['yellowgreen','lightcoral','blue']
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
         plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
@@ -228,7 +228,7 @@ def scatter():
         r2=request.form['r2']
         print(r2)
         #query="select count(*) from earthquake where mag>8"
-        query="select latitude,longitude from earthquake where mag>6.7"
+        query="select latitude,longitude from earthquake where mag>6"
         cursor.execute(query)
 
         result_set = cursor.fetchall()
@@ -261,7 +261,7 @@ def histogram():
         r2=request.form['r2']
         print(r2)
         #query="select count(*) from earthquake where mag>8"
-        query="select mag,depth from earthquake where mag>6"
+        query="select mag,depth from earthquake where mag>5"
         cursor.execute(query)
 
         result_set = cursor.fetchall()
