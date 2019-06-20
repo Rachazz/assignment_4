@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Values</title>
+</head>
+<body>
+<h2>Patil, Rachana Naganagouda......</h2>
+<h1>1001644227</h1>
+
+
+
+ <table>
+    <thead>
+    <tr>
+        <th>Quake Result:::::::::::::::::::::::::::::</th>
+
+    </tr>
+    </thead>
+    <tbody>
+        {% for rows in value %}
+            <tr>
+
+                <td>The result({{rows[0]}})</td>
+
+
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>Quake Result:::::::::::::::::::::::::::::</th>
+
+    </tr>
+    </thead>
+    <tbody>
+        {% for rows in value1 %}
+            <tr>
+
+                <td>The result({{rows[0]}})</td>
+
+
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
+
