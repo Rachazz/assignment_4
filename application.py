@@ -107,7 +107,7 @@ def hbar():
         y_pos = np.arange(len(rms))             #y-axis
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.barh(y_pos,mag,label="Bar1",color='c')
+        plt.barh(y_pos,mag,label="Bar1",color='green')
         plt.yticks(y_pos, bars)
         plt.legend()
         plt.savefig("static/h2.png")
