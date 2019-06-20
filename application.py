@@ -44,7 +44,7 @@ def plot():
         plt.ylabel('y-axis')
         plt.legend()
         #plt.show()
-        plt.savefig("static/plot1.png")
+        plt.savefig("static/b1.png")
     return render_template("display_plot.html")
 
 
