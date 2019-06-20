@@ -88,7 +88,7 @@ def hbar():
 
 # Create names on the y-axis
 
-        plt.savefig("static/h.png")
+        plt.savefig("static/h1.png")
 
 
 
