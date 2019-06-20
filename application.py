@@ -161,11 +161,11 @@ def pie():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
-        r1=request.form['r1']
+        r1=int(request.form['r1'])
         print(r1)
-        r2=request.form['r2']
+        r2=int(request.form['r2'])
         print(r2)
-
+        '''
         #query="select count(*) from earthquake where mag>8"
         #query="select latitude,longitude from earthquake where mag>6"
         query="select count(*) from earthquake where mag<2"
@@ -191,9 +191,21 @@ def pie():
         count.append(result2[0][0])
         count.append(result3[0][0])
         print(count)
-        explode = (0, 0, 0, 0.1)
-        activities=['<2','3-4','4-5','>5']
-        cols=['yellowgreen','lightcoral','white','blue']
+        '''
+        count=[]
+        for i in range(r1,r2,2):
+            temp=i+2
+            #query='select count(*) from earthquake where mag between'+str(i)+' and '+str(temp)+''
+            #query='select count(*) from earthquake where "mag" between '+str(i)+' and '+ str(temp) +''
+            query='select count(*) from earthquake where mag between '+str(i)+' and '+str(temp)+''      ## correct version
+            cursor.execute(query)
+            result=cursor.fetchall()
+            count.append(result[0][0])
+
+        print(count)
+        explode = (0.1, 0, 0)
+        activities=['4-6','6-8','8-10']
+        cols=['yellowgreen','lightcoral','white']
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
         plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
