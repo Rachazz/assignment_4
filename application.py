@@ -39,6 +39,7 @@ def plot():
         print(lat)
         print("----------------------")
         print(long)
+        plt.clf()
         fig=plt.plot(lat,long,label='line1',color='r')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
@@ -79,6 +80,7 @@ def hbar():
         height = [3, 12, 5, 18, 45]
         bars = ('A', 'B', 'C', 'D', 'E')
         y_pos = np.arange(len(bars))
+        plt.clf()
 
 
 
@@ -116,13 +118,14 @@ def vbar():
         print("----------------------")
         #ids=[5,5.5,6,6.5,7,7.5]
         plt.rcParams['figure.figsize']=(10,6)
+        plt.clf()
         fig=plt.bar(depth,mag,label="Bar1",color='c')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
         plt.legend()
         #plt.show()
-        plt.savefig("static/v8.png")
+        plt.savefig("static/v1.png")
     return render_template("display_vbar.html")
 
 
@@ -160,6 +163,7 @@ def pie():
         explode = (0, 0, 0, 0.1)
         activities=['<2','3-4','4-5','>5']
         cols=['yellowgreen','lightcoral','white','blue']
+        plt.clf()
 
         plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
         plt.xlabel('x-axis')
@@ -190,6 +194,7 @@ def scatter():
         print(lat)
         print("----------------------")
         print(long)
+        plt.clf()
         plt.scatter(lat,long,label='skitscat',color='k',marker='*',s=2)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
@@ -218,6 +223,7 @@ def histogram():
         print("----------------------")
         print(depth)
         y=5
+        plt.clf()
         plt.hist(mag,y,histtype='bar',rwidth=1)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
