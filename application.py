@@ -43,32 +43,29 @@ def plot():
 
         #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
         #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
-
-
-
         #query1='select latitude from earthquake where mag>'+str(r1)+'ORDER BY latitude ASC'
+
+        query='select mag,depth from earthquake where mag between '+str(r1)+' and '+str(r2)+''
         query1="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
-        cursor.execute(query1)
+        cursor.execute(query)
 
-        result_set1 = cursor.fetchall()
-        count=[]
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
 
-        for i in range(0,len(result_set1),1):
-            count.append(result_set1[i][0])
+        for i in range(0,len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
 
-        print(count)
-        lat=[]
-        #long=[]
-        for i in range(len(result_set1)):
-            lat.append(result_set1[i][0])
-            #long.append(result_set[i][2])
 
-        print(lat)
+
+
+        print(mag)
         print("----------------------")
         #print(long)
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.plot(count,lat,label='line1',color='k')
+        plt.plot(mag,depth,label='line1',color='y')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         plt.legend()
