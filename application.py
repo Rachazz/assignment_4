@@ -54,23 +54,39 @@ def pie():
     if request.method=="POST":
 
         #query="select count(*) from earthquake where mag>8"
-        query="select latitude,longitude from earthquake where mag>6"
+        #query="select latitude,longitude from earthquake where mag>6"
+        query="select count(*) from earthquake where mag<2"
         cursor.execute(query)
+        result=cursor.fetchall()
 
-        result_set = cursor.fetchall()
-        lat=[]
-        long=[]
-        for i in range(len(result_set)):
-            lat.append(result_set[i][0])
-            long.append(result_set[i][1])
+        query1="select count(*) from earthquake where mag between 3 and 4"
+        cursor.execute(query1)
+        result1=cursor.fetchall()
 
-        print(lat)
-        print("----------------------")
-        plt.pie(lat,long)
+        query2="select count(*) from earthquake where mag between 4 and 5"
+        cursor.execute(query2)
+        result2=cursor.fetchall()
+
+        query3="select count(*) from earthquake where mag>5"
+        cursor.execute(query3)
+        result3=cursor.fetchall()
+
+        count=[]
+        count.append(result[0][0])
+        count.append(result1[0][0])
+        count.append(result2[0][0])
+        count.append(result3[0][0])
+        print(count)
+        explode = (0, 0, 0, 0.1)
+        activities=['<2','3-4','4-5','>5']
+        cols=['yellowgreen','lightcoral','white','blue']
+
+        plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
+        plt.legend()
         #plt.show()
-        plt.savefig("static/graph_pie.png")
+        plt.savefig("static/graph_pie11.png")
     return render_template('display_pie.html')
 
 
@@ -107,23 +123,32 @@ def histogram():
     print("Connection....")
 
         #query="select count(*) from earthquake where mag>8"
-    query="select latitude,longitude from earthquake where mag>8"
+    query="select latitude from earthquake where mag>6"
+    query1="select count(*) from earthquake where mag>6"
     cursor.execute(query)
-
     result_set = cursor.fetchall()
-    lat=[2,4,6,8,10]
-    long=[6,7,8,2,4]
+    cursor.execute(query1)
+
+
+    result_set1=cursor.fetchall()
+    print(result_set1)
+    count=result_set[0][0]
+    print(count)
+    lat=[]
+
+    for i in range(len(result_set)):
+        lat.append(result_set[i][0])
 
 
     print(lat)
     print("--------------------")
-    print(long)
-    plt.bar(lat,long,label="Bars1")
+
+    plt.bar(count,lat,label="Bars1")
     plt.xlabel('x-axis')
     plt.ylabel('y-axis')
     plt.legend()
     #plt.show()
-    plt.savefig("static/graph_histogram.png")
+    plt.savefig("static/graph_histo.png")
     return render_template('display_histogram.html')
 
 
