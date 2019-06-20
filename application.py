@@ -22,7 +22,7 @@ def assign4():
 def plot():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
-    print("Connection....")
+    print("Connection.....")
     if request.method=="POST":
 
         #query="select count(*) from earthquake where mag>8"'
@@ -170,7 +170,7 @@ def pie():
         plt.ylabel('y-axis')
         plt.legend()
         #plt.show()
-        plt.savefig("static/graph_pie12.png")
+        plt.savefig("static/p1.png")
     return render_template('display_pie.html')
 
 
@@ -199,7 +199,7 @@ def scatter():
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.show()
-        plt.savefig("static/graph_sca.png")
+        plt.savefig("static/s1.png")
     return render_template('display_scatter.html')
 
 @app.route('/histogram',methods=['POST','GET'])
@@ -231,7 +231,7 @@ def histogram():
 
 
 
-        plt.savefig("static/graphh3.png")
+        plt.savefig("hist1.png")
 
     return render_template('display_histogram.html')
 
