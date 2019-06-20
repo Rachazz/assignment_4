@@ -128,7 +128,8 @@ def vbar():
         print(r2)
 
         #query="select count(*) from earthquake where mag>8"'
-        query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
+        #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
+        query='select mag,depth from earthquake where mag>'+str(r1)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
