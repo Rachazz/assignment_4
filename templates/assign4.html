@@ -7,8 +7,8 @@
 <body>
 <p>
 <form action="{{url_for('plot')}}" method="POST">
-    Magnitude Range1:<input type="text" name="d1" maxlength="200" width="60"> <br/>
-    Magnitude Range2:<input type="text" name="d2" maxlength="200" width="60"> <br/>
+    Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
    <input type="submit" value="plot"><br/><br/>
 
 </form>
@@ -16,8 +16,8 @@
 
 <p>
 <form action="{{url_for('hbar')}}" method="POST">
-    Magnitude Range1:<input type="text" name="d1" maxlength="200" width="60"> <br/>
-    Magnitude Range2:<input type="text" name="d2" maxlength="200" width="60"> <br/>
+    Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
 
    <input type="submit" value="hbar"><br/><br/>
 
@@ -26,8 +26,8 @@
 
 <p>
 <form action="{{url_for('vbar')}}" method="POST">
-    Magnitude Range1:<input type="text" name="d1" maxlength="200" width="60"> <br/>
-    Magnitude Range2:<input type="text" name="d2" maxlength="200" width="60"> <br/>
+    Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
 
    <input type="submit" value="vbar"><br/><br/>
 
@@ -36,8 +36,8 @@
 
 <p>
  <form action="{{url_for('pie')}}" method="POST">
-    Magnitude Range1:<input type="text" name="d1" maxlength="200" width="60"> <br/>
-    Magnitude Range2:<input type="text" name="d2" maxlength="200" width="60"> <br/>
+    Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
 
    <input type="submit" value="pie"><br/><br/>
 </form>
@@ -45,6 +45,8 @@
 
 <p>
 <form action="{{url_for('scatter')}}" method="POST">
+     Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
 
    <input type="submit" value="scatter"><br/><br/>
 </form>
@@ -52,6 +54,8 @@
 
 <p>
 <form action="{{url_for('histogram')}}" method="POST">
+     Magnitude Range1:<input type="text" name="r1" maxlength="200" width="60"> <br/>
+    Magnitude Range2:<input type="text" name="r2" maxlength="200" width="60"> <br/>
 
    <input type="submit" value="histogram"><br/><br/>
 </form>
