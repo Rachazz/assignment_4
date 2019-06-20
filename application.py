@@ -46,7 +46,8 @@ def plot():
 
 
 
-        query1='select latitude from earthquake where mag>'+str(r1)+'ORDER BY latitude ASC'
+        #query1='select latitude from earthquake where mag>'+str(r1)+'ORDER BY latitude ASC'
+        query1="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
         cursor.execute(query1)
 
         result_set1 = cursor.fetchall()
