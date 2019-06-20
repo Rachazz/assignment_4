@@ -30,6 +30,28 @@ config = {
 def assign4():
     return render_template("assign4.html")
 
+@app.route('/display',methods=['POST','GET'])
+def display():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection...")
+    row=[]
+    row1=[]
+
+        #query='select count(*) from earthquake where "depthError">1'
+    query='select StateName from voting3 where (TotalPop between 2000 and 8000)  '
+
+        #query="SELECT longitude, depth, mag, place FROM earthquaketable WHERE latitude BETWEEN " + range1 + " and " + range2
+    print("query...")
+    cursor.execute(query)
+    row = cursor.fetchall()
+    query1='select StateName from voting3 where (TotalPop between 8000 and 40000)  '
+    cursor.execute(query1)
+    row1 = cursor.fetchall()
+    print(row)
+    print("fetching")
+    return render_template('display_values.html',value=row,value1=row1)
+
 @app.route('/plot',methods=['POST','GET'])
 def plot():
     conn = mysql.connector.connect(**config)
@@ -286,30 +308,7 @@ def histogram():
 
 
 
+
 if __name__ == '__main__':
   app.run(debug='true')
 
-
-#colors = ["b.", "r.", "g.", "w.", "y.", "c.", "m.", "k."]
-'''
-
-        #query="select count(*) from earthquake where mag>8"'
-        query="select mag,depth from earthquake where mag>5"
-        cursor.execute(query)
-
-        result_set = cursor.fetchall()
-        mag=[]
-        depth=[]
-        for i in range(len(result_set)):
-            mag.append(result_set[i][0])
-            depth.append(result_set[i][1])
-
-        print(mag)
-        print("----------------------")
-        plt.rcParams['figure.figsize']=(10,6)
-        fig=plt.bar(depth,mag,label="Bar1",color='r')
-        plt.xlabel('x-axis')
-        plt.ylabel('y-axis')
-        #plt.show()
-        plt.savefig("static/graph_plot.png")
-'''
