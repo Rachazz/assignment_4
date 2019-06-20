@@ -99,7 +99,7 @@ def hbar():
             rms.append(result_set[i][9])
 
         print(mag)
-        print("----------------------")
+        print("---------------------")
 
         x=[5,4,3,2,7]
 
