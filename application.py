@@ -36,9 +36,13 @@ def plot():
     cursor = conn.cursor()
     print("Connection.....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
 
         #query="select count(*) from earthquake where mag>8"'
-        query="select latitude,longitude from earthquake where mag>6"
+        query="select mag from earthquake where mag between "
         cursor.execute(query)
 
         result_set = cursor.fetchall()
@@ -68,17 +72,23 @@ def hbar():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
 
         #query="select count(*) from earthquake where mag>8"'
-        query="select mag,rms from earthquake where mag>6"
+        #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
+        #query="select mag,rms from earthquake where mag between"+str(r1)+"and "+str(r2)
+        query='select * from earthquake where mag between '+str(r1)+' and '+str(r2)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
         mag=[]
         rms=[]
         for i in range(len(result_set)):
-            mag.append(result_set[i][0])
-            rms.append(result_set[i][1])
+            mag.append(result_set[i][4])
+            rms.append(result_set[i][9])
 
         print(mag)
         print("----------------------")
@@ -86,16 +96,17 @@ def hbar():
         x=[5,4,3,2,7]
 
         bars = ('A', 'B', 'C', 'D', 'E')
-        y_pos = np.arange(len(rms))
+        y_pos = np.arange(len(rms))             #y-axis
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
         plt.barh(y_pos,mag,label="Bar1",color='c')
         plt.yticks(y_pos, bars)
+        plt.legend()
         plt.savefig("static/h2.png")
 
 
 
-    return render_template("display_hbar.html")
+    return render_template("display_hbar.html",value=result_set)
 
 @app.route('/vbar',methods=['POST','GET'])
 def vbar():
@@ -103,6 +114,10 @@ def vbar():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
 
         #query="select count(*) from earthquake where mag>8"'
         query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
@@ -121,7 +136,7 @@ def vbar():
         plt.rcParams['figure.figsize']=(10,6)
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.bar(depth,mag,label="Bar1",color='c')
+        plt.bar(depth,mag,label="Bar1",color='c',autopct='%1.1f%%')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
@@ -137,6 +152,10 @@ def pie():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
 
         #query="select count(*) from earthquake where mag>8"
         #query="select latitude,longitude from earthquake where mag>6"
@@ -183,6 +202,10 @@ def scatter():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
         #query="select count(*) from earthquake where mag>8"
         query="select latitude,longitude from earthquake where mag>6.7"
         cursor.execute(query)
@@ -212,6 +235,10 @@ def histogram():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
+        r1=request.form['r1']
+        print(r1)
+        r2=request.form['r2']
+        print(r2)
         #query="select count(*) from earthquake where mag>8"
         query="select mag,depth from earthquake where mag>6"
         cursor.execute(query)
