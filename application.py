@@ -6,6 +6,7 @@ from io import BytesIO
 import base64
 import numpy as np
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 config = {
   'host':'demoquakes.mysql.database.azure.com',
@@ -13,6 +14,14 @@ config = {
   'password':'Earth_quake',
   'database':'equakes'
 }
+
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
+
 
 @app.route('/',methods=['POST','GET'])
 def assign4():
@@ -56,11 +65,27 @@ def hbar():
     print("Connection....")
     if request.method=="POST":
 
-        height = [3, 12, 5, 18, 45]
+        #query="select count(*) from earthquake where mag>8"'
+        query="select mag,depth from earthquake where mag>6"
+        cursor.execute(query)
+
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
+        for i in range(len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
+
+        print(mag)
+        print("----------------------")
+
+        x=[1,2,3,4,5]
+
         bars = ('A', 'B', 'C', 'D', 'E')
         y_pos = np.arange(len(bars))
         plt.clf()
-        plt.barh(y_pos, height,label="Bar1",color='c')
+        plt.rcParams['figure.figsize']=(10,6)
+        plt.barh(y_pos, x,label="Bar1",color='c')
         plt.yticks(y_pos, bars)
         plt.savefig("static/h1.png")
 
