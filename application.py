@@ -5,8 +5,17 @@ import mysql.connector
 from io import BytesIO
 import base64
 import numpy as np
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/static')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
+
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 config = {
   'host':'demoquakes.mysql.database.azure.com',
@@ -14,13 +23,6 @@ config = {
   'password':'Earth_quake',
   'database':'equakes'
 }
-
-@app.after_request
-def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
-    return response
 
 
 @app.route('/',methods=['POST','GET'])
@@ -79,7 +81,7 @@ def hbar():
         print(mag)
         print("----------------------")
 
-        x=[1,2,3,4,5]
+        x=[5,4,3,2,6]
 
         bars = ('A', 'B', 'C', 'D', 'E')
         y_pos = np.arange(len(bars))
@@ -87,7 +89,7 @@ def hbar():
         plt.rcParams['figure.figsize']=(10,6)
         plt.barh(y_pos, x,label="Bar1",color='c')
         plt.yticks(y_pos, bars)
-        plt.savefig("static/h1.png")
+        plt.savefig("static/h2.png")
 
 
 
