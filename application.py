@@ -23,7 +23,7 @@ def plot():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    #query="select count(*) from earthquake where mag>8"''
+    #query="select count(*) from earthquake where mag>8"'
     query="select latitude,longitude from earthquake where mag>6"
     cursor.execute(query)
 
