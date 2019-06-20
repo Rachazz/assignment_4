@@ -55,41 +55,13 @@ def hbar():
     cursor = conn.cursor()
     print("Connection....")
     if request.method=="POST":
-        '''
 
-        #query="select count(*) from earthquake where mag>8"'
-        query="select mag,depth from earthquake where mag>5"
-        cursor.execute(query)
-
-        result_set = cursor.fetchall()
-        mag=[]
-        depth=[]
-        for i in range(len(result_set)):
-            mag.append(result_set[i][0])
-            depth.append(result_set[i][1])
-
-        print(mag)
-        print("----------------------")
-        plt.rcParams['figure.figsize']=(10,6)
-        fig=plt.bar(depth,mag,label="Bar1",color='r')
-        plt.xlabel('x-axis')
-        plt.ylabel('y-axis')
-        #plt.show()
-        plt.savefig("static/graph_plot.png")
-        '''
         height = [3, 12, 5, 18, 45]
         bars = ('A', 'B', 'C', 'D', 'E')
         y_pos = np.arange(len(bars))
         plt.clf()
-
-
-
-# Create horizontal bars
         plt.barh(y_pos, height,label="Bar1",color='c')
         plt.yticks(y_pos, bars)
-
-# Create names on the y-axis
-
         plt.savefig("static/h1.png")
 
 
@@ -227,10 +199,6 @@ def histogram():
         plt.hist(mag,y,histtype='bar',rwidth=1)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
-        #plt.show()
-
-
-
         plt.savefig("hist1.png")
 
     return render_template('display_histogram.html')
@@ -242,3 +210,25 @@ if __name__ == '__main__':
 
 
 #colors = ["b.", "r.", "g.", "w.", "y.", "c.", "m.", "k."]
+'''
+
+        #query="select count(*) from earthquake where mag>8"'
+        query="select mag,depth from earthquake where mag>5"
+        cursor.execute(query)
+
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
+        for i in range(len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
+
+        print(mag)
+        print("----------------------")
+        plt.rcParams['figure.figsize']=(10,6)
+        fig=plt.bar(depth,mag,label="Bar1",color='r')
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.show()
+        plt.savefig("static/graph_plot.png")
+'''
