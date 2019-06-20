@@ -147,7 +147,7 @@ def vbar():
         plt.rcParams['figure.figsize']=(10,6)
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.bar(depth,mag,label="Bar1",color='c',autopct='%1.1f%%')
+        plt.bar(depth,mag,label="Bar1",color='c')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
