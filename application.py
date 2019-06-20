@@ -1,11 +1,12 @@
 from flask import Flask,render_template,make_response
-import io
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import random
 import numpy as np
 import mysql.connector
+from io import BytesIO
+import base64
 
 app = Flask(__name__)
 
@@ -17,33 +18,121 @@ config = {
 }
 
 @app.route('/')
-def piechart():
+def assign4():
+    return render_template("assign4.html")
+
+@app.route('/plot')
+def plot():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    ##query="select count(*) from earthquake where mag>8"
-    ##cursor.execute(query)
+    #query="select count(*) from earthquake where mag>8"
+    query="select latitude,longitude from earthquake where mag>6"
+    cursor.execute(query)
 
-    ##result_set = cursor.fetchall()
-    ##age =[]
-    #for row in result_set:
-       #age.append(row[0])
+    result_set = cursor.fetchall()
+    lat=[]
+    long=[]
+    for i in range(len(result_set)):
+        lat.append(result_set[i][0])
+        long.append(result_set[i][1])
 
-    age1=[1,2,3]
-    p_labels=[1,2,3]
+    print(lat)
+    print("----------------------")
+    fig=plt.plot(lat,long)
+    plt.xlabel('x-axis')
+    plt.ylabel('y-axis')
+    #plt.show()
+    plt.savefig("static/graph2.png")
+    return render_template("display.html")
 
+def convert_fig_to_html(fig):
 
+    figfile = BytesIO()
+    plt.savefig(figfile, format='png')
+    figfile.seek(0)
+    # rewind to beginning of file
+    #figdata_png = base64.b64encode(figfile.read())
+    figdata_png = base64.b64encode(figfile.getvalue())
+    return figdata_png
 
+@app.route('/pie')
+def pie():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection....")
+    #query="select count(*) from earthquake where mag>8"
+    query="select latitude,longitude from earthquake where mag>6"
+    cursor.execute(query)
 
-    plt.pie(age1,labels=p_labels)
+    result_set = cursor.fetchall()
+    lat=[]
+    long=[]
+    for i in range(len(result_set)):
+        lat.append(result_set[i][0])
+        long.append(result_set[i][1])
 
+    print(lat)
+    print("----------------------")
+    plt.pie(lat,long)
+    plt.xlabel('x-axis')
+    plt.ylabel('y-axis')
     plt.show()
-
     return render_template('display.html')
 
 
+@app.route('/scatter')
+def scatter():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection....")
+    #query="select count(*) from earthquake where mag>8"
+    query="select latitude,longitude from earthquake where mag>6"
+    cursor.execute(query)
+
+    result_set = cursor.fetchall()
+    lat=[]
+    long=[]
+    for i in range(len(result_set)):
+        lat.append(result_set[i][0])
+        long.append(result_set[i][1])
+
+    print(lat)
+    print("----------------------")
+    plt.scatter(lat,long)
+    plt.xlabel('x-axis')
+    plt.ylabel('y-axis')
+    plt.show()
+    return render_template('display.html')
+
+@app.route('/histogram')
+def histo():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection....")
+    #query="select count(*) from earthquake where mag>8"
+    query="select latitude,longitude from earthquake where mag>6"
+    cursor.execute(query)
+
+    result_set = cursor.fetchall()
+    lat=[]
+    long=[]
+    for i in range(len(result_set)):
+        lat.append(result_set[i][0])
+        long.append(result_set[i][1])
+
+    print(lat)
+    print("----------------------")
+    plt.plot(lat,long)
+    plt.xlabel('x-axis')
+    plt.ylabel('y-axis')
+    plt.show()
+    return render_template('display.html')
+
+
+
 if __name__ == '__main__':
-  app.run()
+  app.run(debug='true')
 '''
 def plot():
     conn = mysql.connector.connect(**config)
