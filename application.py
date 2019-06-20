@@ -43,7 +43,7 @@ def plot():
     plt.xlabel('x-axis')
     plt.ylabel('y-axis')
     #plt.show()
-    plt.savefig("static/graph2.png")
+    plt.savefig("static/graph3.png")
     return render_template("display.html")
 
 def convert_fig_to_html(fig):
