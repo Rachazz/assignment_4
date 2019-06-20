@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import mysql.connector
 from io import BytesIO
 import base64
-
+import numpy as np
 app = Flask(__name__)
 
 config = {
@@ -38,12 +38,92 @@ def plot():
 
         print(lat)
         print("----------------------")
-        fig=plt.plot(lat,long)
+        print(long)
+        fig=plt.plot(lat,long,label='line1',color='r')
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        plt.legend()
+        #plt.show()
+        plt.savefig("static/plot1.png")
+    return render_template("display_plot.html")
+
+
+@app.route('/hbar',methods=['POST','GET'])
+def hbar():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection....")
+    if request.method=="POST":
+        '''
+
+        #query="select count(*) from earthquake where mag>8"'
+        query="select mag,depth from earthquake where mag>5"
+        cursor.execute(query)
+
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
+        for i in range(len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
+
+        print(mag)
+        print("----------------------")
+        plt.rcParams['figure.figsize']=(10,6)
+        fig=plt.bar(depth,mag,label="Bar1",color='r')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.show()
         plt.savefig("static/graph_plot.png")
-    return render_template("display_plot.html")
+        '''
+        height = [3, 12, 5, 18, 45]
+        bars = ('A', 'B', 'C', 'D', 'E')
+        y_pos = np.arange(len(bars))
+
+
+
+# Create horizontal bars
+        plt.barh(y_pos, height,label="Bar1",color='c')
+        plt.yticks(y_pos, bars)
+
+# Create names on the y-axis
+
+        plt.savefig("static/h.png")
+
+
+
+    return render_template("display_hbar.html")
+
+@app.route('/vbar',methods=['POST','GET'])
+def vbar():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+    print("Connection....")
+    if request.method=="POST":
+
+        #query="select count(*) from earthquake where mag>8"'
+        query="select mag,depth from earthquake where mag>5"
+        cursor.execute(query)
+
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
+        for i in range(len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
+
+        print(mag)
+        print("----------------------")
+        #ids=[5,5.5,6,6.5,7,7.5]
+        plt.rcParams['figure.figsize']=(10,6)
+        fig=plt.bar(depth,mag,label="Bar1",color='c')
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
+        plt.legend()
+        #plt.show()
+        plt.savefig("static/v8.png")
+    return render_template("display_vbar.html")
 
 
 @app.route('/pie',methods=['POST','GET'])
@@ -86,7 +166,7 @@ def pie():
         plt.ylabel('y-axis')
         plt.legend()
         #plt.show()
-        plt.savefig("static/graph_pie11.png")
+        plt.savefig("static/graph_pie12.png")
     return render_template('display_pie.html')
 
 
@@ -97,7 +177,7 @@ def scatter():
     print("Connection....")
     if request.method=="POST":
         #query="select count(*) from earthquake where mag>8"
-        query="select latitude,longitude from earthquake where mag>6"
+        query="select latitude,longitude from earthquake where mag>6.7"
         cursor.execute(query)
 
         result_set = cursor.fetchall()
@@ -109,119 +189,50 @@ def scatter():
 
         print(lat)
         print("----------------------")
-        plt.scatter(lat,long)
+        print(long)
+        plt.scatter(lat,long,label='skitscat',color='k',marker='*',s=2)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.show()
-        plt.savefig("static/graph_scatter.png")
+        plt.savefig("static/graph_sca.png")
     return render_template('display_scatter.html')
 
-@app.route('/histogram')
+@app.route('/histogram',methods=['POST','GET'])
 def histogram():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-
+    if request.method=="POST":
         #query="select count(*) from earthquake where mag>8"
-    query="select latitude from earthquake where mag>6"
-    query1="select count(*) from earthquake where mag>6"
-    cursor.execute(query)
-    result_set = cursor.fetchall()
-    cursor.execute(query1)
+        query="select mag,depth from earthquake where mag>6"
+        cursor.execute(query)
+
+        result_set = cursor.fetchall()
+        mag=[]
+        depth=[]
+        for i in range(len(result_set)):
+            mag.append(result_set[i][0])
+            depth.append(result_set[i][1])
+
+        print(mag)
+        print("----------------------")
+        print(depth)
+        y=5
+        plt.hist(mag,y,histtype='bar',rwidth=1)
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.show()
 
 
-    result_set1=cursor.fetchall()
-    print(result_set1)
-    count=result_set[0][0]
-    print(count)
-    lat=[]
 
-    for i in range(len(result_set)):
-        lat.append(result_set[i][0])
+        plt.savefig("static/graphh3.png")
 
-
-    print(lat)
-    print("--------------------")
-
-    plt.bar(count,lat,label="Bars1")
-    plt.xlabel('x-axis')
-    plt.ylabel('y-axis')
-    plt.legend()
-    #plt.show()
-    plt.savefig("static/graph_histo.png")
     return render_template('display_histogram.html')
 
 
 
 if __name__ == '__main__':
   app.run(debug='true')
-'''
-def plot():
-    conn = mysql.connector.connect(**config)
-    cursor = conn.cursor()
-    print("Connection....")
-   
-    row=[]
-    #query='select count(*) from earthquake where "depthError" between 0 and 1'
-    #query="select time,latitude,longitude,depthError from earthquake where depthError between 0 and 3"
-    #query="select count(*) from earthquake where depthError between 0 and 0.5"
-    query="select latitude,longitude from earthquake where depthError between 0 and 0.2"
-    cursor.execute(query)
-    row = cursor.fetchall()
-
-    lat=[]
-    long=[]
-    for i in row:
-        lat.append(row[0])
-        long.append(row[1])
-
-    print(type(list(lat)))
-    print("----------------------")
 
 
-    plt.plot(lat,long)
-    plt.xlabel('x-axis')
-    plt.ylabel('y-axis')
-    plt.show()
-
-
-
-
-    return render_template('display_plot.html')
-
-
-
-
-
-
-
-def barchart():
-
-    conn = mysql.connector.connect(**config)
-    cursor = conn.cursor()
-    print("Connection....")
-    query="select latitude,longitude from earthquake where depthError between 0 and 0.2"
-
-    cursor.execute(query)
-    result_set = cursor.fetchall()
-    lat =[]
-    lon=[]
-    for row in result_set:
-        lat.append(row[0])
-        lon.append(row[1])
-
-
-    objects = ('1', '2')
-    y_pos = np.arange(len(objects))
-    performance = [lat[0]]
-
-    plt.bar(y_pos, performance, align='center', alpha=0.5)
-    plt.xticks(y_pos, objects)
-    plt.ylabel('Count')
-    plt.title('numbers of male survivors')
-    plt.show()
-
-    return render_template('display_plot.html')
-'''
-
-
+#colors = ["b.", "r.", "g.", "w.", "y.", "c.", "m.", "k."]
