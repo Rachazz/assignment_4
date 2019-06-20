@@ -1,4 +1,4 @@
-from flask import Flask,render_template,make_response
+from flask import Flask,render_template,request
 import matplotlib.pyplot as plt
 
 import mysql.connector
@@ -14,117 +14,117 @@ config = {
   'database':'equakes'
 }
 
-@app.route('/')
+@app.route('/',methods=['POST','GET'])
 def assign4():
     return render_template("assign4.html")
 
-@app.route('/plot')
+@app.route('/plot',methods=['POST','GET'])
 def plot():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    #query="select count(*) from earthquake where mag>8"'
-    query="select latitude,longitude from earthquake where mag>6"
-    cursor.execute(query)
+    if request.method=="POST":
 
-    result_set = cursor.fetchall()
-    lat=[]
-    long=[]
-    for i in range(len(result_set)):
-        lat.append(result_set[i][0])
-        long.append(result_set[i][1])
+        #query="select count(*) from earthquake where mag>8"'
+        query="select latitude,longitude from earthquake where mag>6"
+        cursor.execute(query)
 
-    print(lat)
-    print("----------------------")
-    fig=plt.plot(lat,long)
-    plt.xlabel('x-axis')
-    plt.ylabel('y-axis')
-    #plt.show()
-    plt.savefig("static/graph3.png")
-    return render_template("display.html")
+        result_set = cursor.fetchall()
+        lat=[]
+        long=[]
+        for i in range(len(result_set)):
+            lat.append(result_set[i][0])
+            long.append(result_set[i][1])
 
-def convert_fig_to_html(fig):
+        print(lat)
+        print("----------------------")
+        fig=plt.plot(lat,long)
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.show()
+        plt.savefig("static/graph_plot.png")
+    return render_template("display_plot.html")
 
-    figfile = BytesIO()
-    plt.savefig(figfile, format='png')
-    figfile.seek(0)
-    # rewind to beginning of file
-    #figdata_png = base64.b64encode(figfile.read())
-    figdata_png = base64.b64encode(figfile.getvalue())
-    return figdata_png
 
-@app.route('/pie')
+@app.route('/pie',methods=['POST','GET'])
 def pie():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    #query="select count(*) from earthquake where mag>8"
-    query="select latitude,longitude from earthquake where mag>6"
-    cursor.execute(query)
+    if request.method=="POST":
 
-    result_set = cursor.fetchall()
-    lat=[]
-    long=[]
-    for i in range(len(result_set)):
-        lat.append(result_set[i][0])
-        long.append(result_set[i][1])
+        #query="select count(*) from earthquake where mag>8"
+        query="select latitude,longitude from earthquake where mag>6"
+        cursor.execute(query)
 
-    print(lat)
-    print("----------------------")
-    plt.pie(lat,long)
-    plt.xlabel('x-axis')
-    plt.ylabel('y-axis')
-    plt.show()
-    return render_template('display.html')
+        result_set = cursor.fetchall()
+        lat=[]
+        long=[]
+        for i in range(len(result_set)):
+            lat.append(result_set[i][0])
+            long.append(result_set[i][1])
+
+        print(lat)
+        print("----------------------")
+        plt.pie(lat,long)
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.show()
+        plt.savefig("static/graph_pie.png")
+    return render_template('display_pie.html')
 
 
-@app.route('/scatter')
+@app.route('/scatter',methods=['POST','GET'])
 def scatter():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    #query="select count(*) from earthquake where mag>8"
-    query="select latitude,longitude from earthquake where mag>6"
-    cursor.execute(query)
+    if request.method=="POST":
+        #query="select count(*) from earthquake where mag>8"
+        query="select latitude,longitude from earthquake where mag>6"
+        cursor.execute(query)
 
-    result_set = cursor.fetchall()
-    lat=[]
-    long=[]
-    for i in range(len(result_set)):
-        lat.append(result_set[i][0])
-        long.append(result_set[i][1])
+        result_set = cursor.fetchall()
+        lat=[]
+        long=[]
+        for i in range(len(result_set)):
+            lat.append(result_set[i][0])
+            long.append(result_set[i][1])
 
-    print(lat)
-    print("----------------------")
-    plt.scatter(lat,long)
-    plt.xlabel('x-axis')
-    plt.ylabel('y-axis')
-    plt.show()
-    return render_template('display.html')
+        print(lat)
+        print("----------------------")
+        plt.scatter(lat,long)
+        plt.xlabel('x-axis')
+        plt.ylabel('y-axis')
+        #plt.show()
+        plt.savefig("static/graph_scatter.png")
+    return render_template('display_scatter.html')
 
 @app.route('/histogram')
-def histo():
+def histogram():
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
     print("Connection....")
-    #query="select count(*) from earthquake where mag>8"
-    query="select latitude,longitude from earthquake where mag>6"
+
+        #query="select count(*) from earthquake where mag>8"
+    query="select latitude,longitude from earthquake where mag>8"
     cursor.execute(query)
 
     result_set = cursor.fetchall()
-    lat=[]
-    long=[]
-    for i in range(len(result_set)):
-        lat.append(result_set[i][0])
-        long.append(result_set[i][1])
+    lat=[2,4,6,8,10]
+    long=[6,7,8,2,4]
+
 
     print(lat)
-    print("----------------------")
-    plt.plot(lat,long)
+    print("--------------------")
+    print(long)
+    plt.bar(lat,long,label="Bars1")
     plt.xlabel('x-axis')
     plt.ylabel('y-axis')
-    plt.show()
-    return render_template('display.html')
+    plt.legend()
+    #plt.show()
+    plt.savefig("static/graph_histogram.png")
+    return render_template('display_histogram.html')
 
 
 
@@ -162,7 +162,7 @@ def plot():
 
 
 
-    return render_template('display.html')
+    return render_template('display_plot.html')
 
 
 
@@ -196,7 +196,7 @@ def barchart():
     plt.title('numbers of male survivors')
     plt.show()
 
-    return render_template('display.html')
+    return render_template('display_plot.html')
 '''
 
 
