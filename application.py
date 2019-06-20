@@ -76,7 +76,7 @@ def vbar():
     if request.method=="POST":
 
         #query="select count(*) from earthquake where mag>8"'
-        query="select mag,depth from earthquake where mag>5"
+        query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
         cursor.execute(query)
 
         result_set = cursor.fetchall()
@@ -97,7 +97,7 @@ def vbar():
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
         plt.legend()
         #plt.show()
-        plt.savefig("static/v1.png")
+        plt.savefig("static/v2.png")
     return render_template("display_vbar.html")
 
 
@@ -111,6 +111,7 @@ def pie():
         #query="select count(*) from earthquake where mag>8"
         #query="select latitude,longitude from earthquake where mag>6"
         query="select count(*) from earthquake where mag<2"
+        #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
         cursor.execute(query)
         result=cursor.fetchall()
 
@@ -199,7 +200,7 @@ def histogram():
         plt.hist(mag,y,histtype='bar',rwidth=1)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
-        plt.savefig("hist1.png")
+        plt.savefig("static/his1.png")
 
     return render_template('display_histogram.html')
 
