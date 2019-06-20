@@ -41,23 +41,33 @@ def plot():
         r2=request.form['r2']
         print(r2)
 
-        #query="select count(*) from earthquake where mag>8"'
-        query="select mag from earthquake where mag between "
-        cursor.execute(query)
+        #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
+        #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
 
-        result_set = cursor.fetchall()
+
+
+        query1='select latitude from earthquake where mag>'+str(r1)+'ORDER BY latitude ASC'
+        cursor.execute(query1)
+
+        result_set1 = cursor.fetchall()
+        count=[]
+
+        for i in range(0,len(result_set1),1):
+            count.append(result_set1[i][0])
+
+        print(count)
         lat=[]
-        long=[]
-        for i in range(len(result_set)):
-            lat.append(result_set[i][0])
-            long.append(result_set[i][1])
+        #long=[]
+        for i in range(len(result_set1)):
+            lat.append(result_set1[i][0])
+            #long.append(result_set[i][2])
 
         print(lat)
         print("----------------------")
-        print(long)
+        #print(long)
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.plot(lat,long,label='line1',color='r')
+        plt.plot(count,lat,label='line1',color='k')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         plt.legend()
@@ -78,8 +88,8 @@ def hbar():
         print(r2)
 
         #query="select count(*) from earthquake where mag>8"'
-        #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
-        #query="select mag,rms from earthquake where mag between"+str(r1)+"and "+str(r2)
+
+
         query='select * from earthquake where mag between '+str(r1)+' and '+str(r2)+''
         cursor.execute(query)
 
