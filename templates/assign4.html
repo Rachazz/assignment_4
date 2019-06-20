@@ -12,23 +12,43 @@
 
 </form>
 </p>
+
+<p>
+<form action="{{url_for('hbar')}}" method="POST">
+
+   <input type="submit" value="hbar"><br/><br/>
+
+</form>
+</p>
+
+<p>
+<form action="{{url_for('vbar')}}" method="POST">
+
+   <input type="submit" value="vbar"><br/><br/>
+
+</form>
+</p>
+
 <p>
  <form action="{{url_for('pie')}}" method="POST">
 
    <input type="submit" value="pie"><br/><br/>
 </form>
 </p>
+
 <p>
 <form action="{{url_for('scatter')}}" method="POST">
 
-   <input type="submit" value="pie"><br/><br/>
+   <input type="submit" value="scatter"><br/><br/>
 </form>
 </p>
+
 <p>
 <form action="{{url_for('histogram')}}" method="POST">
 
-   <input type="submit" value="pie"><br/><br/>
+   <input type="submit" value="histogram"><br/><br/>
 </form>
 </p>
+
 </body>
 </html>
