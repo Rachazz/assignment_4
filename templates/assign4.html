@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+</head>
+<body>
+<p>
+ <form action="{{url_for('plot')}}" method="POST">
+
+   <input type="submit" value="plot"><br/><br/>
+</form>
+</p>
+<p>
+ <form action="/pie" method="POST">
+
+   <input type="submit" value="pie"><br/><br/>
+</form>
+</p>
+<p>
+ <form action="/scatter" method="POST">
+
+   <input type="submit" value="scatter"><br/><br/>
+</form>
+</p>
+<p>
+ <form action="/histogram" method="POST">
+
+   <input type="submit" value="historam"><br/><br/>
+</form>
+</p>
+</body>
+</html>
