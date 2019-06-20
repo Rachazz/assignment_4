@@ -1,9 +1,6 @@
 from flask import Flask,render_template,make_response
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-import random
-import numpy as np
+
 import mysql.connector
 from io import BytesIO
 import base64
