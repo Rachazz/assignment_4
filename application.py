@@ -52,7 +52,8 @@ def plot():
         print("----------------------")
         print(long)
         plt.clf()
-        fig=plt.plot(lat,long,label='line1',color='r')
+        plt.rcParams['figure.figsize']=(10,6)
+        plt.plot(lat,long,label='line1',color='r')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         plt.legend()
@@ -119,7 +120,8 @@ def vbar():
         #ids=[5,5.5,6,6.5,7,7.5]
         plt.rcParams['figure.figsize']=(10,6)
         plt.clf()
-        fig=plt.bar(depth,mag,label="Bar1",color='c')
+        plt.rcParams['figure.figsize']=(10,6)
+        plt.bar(depth,mag,label="Bar1",color='c')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
@@ -165,7 +167,7 @@ def pie():
         activities=['<2','3-4','4-5','>5']
         cols=['yellowgreen','lightcoral','white','blue']
         plt.clf()
-
+        plt.rcParams['figure.figsize']=(10,6)
         plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
@@ -196,6 +198,7 @@ def scatter():
         print("----------------------")
         print(long)
         plt.clf()
+        plt.rcParams['figure.figsize']=(10,6)
         plt.scatter(lat,long,label='skitscat',color='k',marker='*',s=2)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
@@ -225,6 +228,7 @@ def histogram():
         print(depth)
         y=5
         plt.clf()
+        plt.rcParams['figure.figsize']=(10,6)
         plt.hist(mag,y,histtype='bar',rwidth=1)
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
