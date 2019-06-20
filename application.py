@@ -11,8 +11,9 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.after_request
 def after_request(response):
+
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
+    response.headers["Expires"] = -1
     response.headers["Pragma"] = "no-cache"
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
@@ -68,26 +69,26 @@ def hbar():
     if request.method=="POST":
 
         #query="select count(*) from earthquake where mag>8"'
-        query="select mag,depth from earthquake where mag>6"
+        query="select mag,rms from earthquake where mag>6"
         cursor.execute(query)
 
         result_set = cursor.fetchall()
         mag=[]
-        depth=[]
+        rms=[]
         for i in range(len(result_set)):
             mag.append(result_set[i][0])
-            depth.append(result_set[i][1])
+            rms.append(result_set[i][1])
 
         print(mag)
         print("----------------------")
 
-        x=[5,4,3,2,6]
+        x=[5,4,3,2,7]
 
         bars = ('A', 'B', 'C', 'D', 'E')
-        y_pos = np.arange(len(bars))
+        y_pos = np.arange(len(rms))
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.barh(y_pos, x,label="Bar1",color='c')
+        plt.barh(y_pos,mag,label="Bar1",color='c')
         plt.yticks(y_pos, bars)
         plt.savefig("static/h2.png")
 
