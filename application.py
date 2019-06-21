@@ -63,7 +63,7 @@ def plot():
         r2=request.form['r2']
         print(r2)
 
-        #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
+        ##query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
         #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
         #query1='select latitude from earthquake where mag>'+str(r1)+'ORDER BY latitude ASC'
 
