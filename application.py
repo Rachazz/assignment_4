@@ -247,14 +247,19 @@ def scatter():
     if request.method=="POST":
         r1=request.form['r1']
         print(r1)
+
         r2=request.form['r2']
         print(r2)
+
         #query="select count(*) from earthquake where mag>8"
-        query="select latitude,longitude from earthquake where mag>6"
+        #query="select latitude,longitude from earthquake where mag>6"
+        #'select * from earthquake where "depthError" between '+str(mag1)+' and '+str(mag2)+''
+        query='SELECT "TotalPop","Registered" from voting3 where TotalPop betweeen \''+r1+'\' and\''+r2+'\''
+        query='select TotalPop,Registered from voting3 where TotalPop between '+str(r1)+' and '+str(r2)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
-        lat=[]
+        lat=[]##Totalpop
         long=[]
         for i in range(len(result_set)):
             lat.append(result_set[i][0])
