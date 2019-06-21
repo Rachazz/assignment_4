@@ -190,7 +190,8 @@ def pie():
         '''
         #query="select count(*) from earthquake where mag>8"
         #query="select latitude,longitude from earthquake where mag>6"
-        query="select count(*) from earthquake where mag<2"
+        #query="select count(*) from voting3 where mag<2"
+        query='select count(*) from voting3 where StateName between '+str(r1)+' and '+str(r2)+''
         #query="select time,latitude,longitude,depthError from earthquake where (depthError between "+d1+" and "+d2+") and longitude> "+long1
         cursor.execute(query)
         result=cursor.fetchall()
@@ -215,24 +216,24 @@ def pie():
         print(count)
         '''
         count=[]
-        for i in range(r1,r2,2):
-            temp=i+2
+        for i in range(r1,r2,5000):
+            temp=i+5000
             #query='select count(*) from earthquake where mag between'+str(i)+' and '+str(temp)+''
             #query='select count(*) from earthquake where "mag" between '+str(i)+' and '+ str(temp) +''
-            query='select count(*) from earthquake where mag between '+str(i)+' and '+str(temp)+''      ## correct version
+            query='select count(*) from voting3 where StateName between '+str(i)+' and '+str(temp)+''      ## correct version
             cursor.execute(query)
             result=cursor.fetchall()
             count.append(result[0][0])
 
         print(count)
         explode = (0.1, 0, 0)
-        activities=['4-6','6-8','8-10']
+        activities=['0-5million','5-10million','10-15million']
         cols=['yellowgreen','lightcoral','blue']
         plt.clf()
-        plt.rcParams['figure.figsize']=(10,6)
+        plt.rcParams['figure.figsize']=(10,10)
         plt.pie(count,labels=activities,colors=cols,explode=explode, autopct='%1.1f%%')
-        plt.xlabel('x-axis')
-        plt.ylabel('y-axis')
+        #plt.xlabel('x-axis')
+        #plt.ylabel('y-axis')
         plt.legend()
         #plt.show()
         plt.savefig("static/p1.png")
