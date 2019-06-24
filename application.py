@@ -220,7 +220,7 @@ def pie():
             temp=i+5000
             #query='select count(*) from earthquake where mag between'+str(i)+' and '+str(temp)+''
             #query='select count(*) from earthquake where "mag" between '+str(i)+' and '+ str(temp) +''
-            query='select count(*) from voting3 where StateName between '+str(i)+' and '+str(temp)+''      ## correct version
+            query='select count(*) from voting3 where TotalPop between '+str(i)+' and '+str(temp)+''      ## correct version
             cursor.execute(query)
             result=cursor.fetchall()
             count.append(result[0][0])
