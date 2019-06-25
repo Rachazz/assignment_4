@@ -289,7 +289,8 @@ def histogram():
         r2=request.form['r2']
         print(r2)
         #query="select count(*) from earthquake where mag>8"
-        query="select mag,depth from earthquake where mag>5"
+        #query="select mag,depth from earthquake where mag>5"
+        query='select TotalPop,Registered from voting3 where TotalPop between '+str(r1)+' and '+str(r2)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
