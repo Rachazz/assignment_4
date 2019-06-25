@@ -157,19 +157,21 @@ def vbar():
         cursor.execute(query)
 
         result_set = cursor.fetchall()
+
         mag=[]
-        depth=[]
+        #depth=[]
         for i in range(len(result_set)):
             mag.append(result_set[i][0])
-            depth.append(result_set[i][1])
+            #depth.append(result_set[i][1])
 
         print(mag)
+        x=[1,2,3,4,5]
         print("----------------------")
         #ids=[5,5.5,6,6.5,7,7.5]
         plt.rcParams['figure.figsize']=(10,6)
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
-        plt.bar(depth,mag,label="Bar1",color='c')
+        plt.bar(mag,y,label="Bar1",color='c')
         plt.xlabel('x-axis')
         plt.ylabel('y-axis')
         #plt.yticks([0,2,4,6,8],['0','2','4','6','8'])
