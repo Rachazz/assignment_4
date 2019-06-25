@@ -153,7 +153,7 @@ def vbar():
         #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
         #query='select mag,depth from earthquake where mag>'+str(r1)+''
 
-        query='select count(*) from voting3 where TotalPop between '+str(i)+' and '+str(temp)+''
+        query='select count(*) from voting3 where TotalPop between '+str(r1)+' and '+str(r2)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
