@@ -152,7 +152,8 @@ def vbar():
         #query="select count(*) from earthquake where mag>8"'
         #query="select mag,depth from earthquake where mag>5 ORDER BY mag ASC"
         #query='select mag,depth from earthquake where mag>'+str(r1)+''
-        query='select TotalPop,Registered from voting3 where TotalPop between '+str(r1)+' and '+str(r2)+''
+
+        query='select count(*) from voting3 where TotalPop between '+str(i)+' and '+str(temp)+''
         cursor.execute(query)
 
         result_set = cursor.fetchall()
@@ -217,6 +218,7 @@ def pie():
         print(count)
         '''
         count=[]
+
         for i in range(r1,r2,5000):
             temp=i+5000
             #query='select count(*) from earthquake where mag between'+str(i)+' and '+str(temp)+''
@@ -225,6 +227,7 @@ def pie():
             cursor.execute(query)
             result=cursor.fetchall()
             count.append(result[0][0])
+
 
         print(count)
         explode = (0.1, 0, 0)
@@ -256,8 +259,9 @@ def scatter():
         #query="select count(*) from earthquake where mag>8"
         #query="select latitude,longitude from earthquake where mag>6"
         #'select * from earthquake where "depthError" between '+str(mag1)+' and '+str(mag2)+''
-        query='SELECT "TotalPop","Registered" from voting3 where TotalPop betweeen \''+r1+'\' and\''+r2+'\''
+        #query='SELECT "TotalPop","Registered" from voting3 where TotalPop betweeen \''+r1+'\' and\''+r2+'\''
         query='select TotalPop,Registered from voting3 where TotalPop between '+str(r1)+' and '+str(r2)+''
+
         cursor.execute(query)
 
         result_set = cursor.fetchall()
