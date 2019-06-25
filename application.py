@@ -307,8 +307,8 @@ def histogram():
         plt.clf()
         plt.rcParams['figure.figsize']=(10,6)
         plt.hist(mag,y,histtype='bar',rwidth=1)
-        plt.xlabel('x-axis')
-        plt.ylabel('y-axis')
+        plt.xlabel('Registered')
+        plt.ylabel('Totalpop')
         plt.savefig("static/his1.png")
 
     return render_template('display_histogram.html')
